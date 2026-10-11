@@ -1,0 +1,59 @@
+
+#include <stdio.h>
+
+struct Student
+{
+    int rollNo;
+    char name[50];
+    float marks[3];
+    float total;
+    float percentage;
+};
+
+void calculateResult(struct Student *s)
+{
+    s->total = s->marks[0] + s->marks[1] + s->marks[2];
+    s->percentage = s->total / 3;
+}
+
+void displayResult(struct Student s)
+{
+    printf("\n----- STUDENT RESULT -----\n");
+    printf("Roll Number: %d\n", s.rollNo);
+    printf("Name: %s\n", s.name);
+    printf("Total Marks: %.2f / 300\n", s.total);
+    printf("Percentage: %.2f%%\n", s.percentage);
+
+    if (s.percentage >= 75)
+        printf("Grade: Distinction\n");
+    else if (s.percentage >= 60)
+        printf("Grade: First Class\n");
+    else if (s.percentage >= 35)
+        printf("Grade: Pass\n");
+    else
+        printf("Grade: Fail\n");
+}
+
+int main()
+{
+    struct Student s;
+
+    printf("Enter Roll Number: ");
+    scanf("%d", &s.rollNo);
+
+    printf("Enter Student Name: ");
+    scanf(" %49[^\n]", s.name);
+
+    printf("Enter marks in 3 subjects:\n");
+
+    for (int i = 0; i < 3; i++)
+    {
+        printf("Subject %d: ", i + 1);
+        scanf("%f", &s.marks[i]);
+    }
+
+    calculateResult(&s);
+    displayResult(s);
+
+    return 0;
+}
